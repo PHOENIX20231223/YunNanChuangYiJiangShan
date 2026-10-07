@@ -5,7 +5,7 @@ const STORAGE_KEY = 'yunnan_jiangshan_news_v1';
 export const initialNews: NewsItem[] = [
   {
     id: 'news-1',
-    titleZh: '泸沽湖女儿谷综合文旅度假区进入收官冲刺，将于2026年10月盛大启幕',
+    titleZh: '泸沽湖女儿谷综合文旅度假区进入收官冲刺',
     titleEn: 'Lugu Lake Daughter Valley Resort Enters Final Sprint Ahead of October 2026 Grand Opening',
     category: 'milestone',
     date: '2026-09-18',

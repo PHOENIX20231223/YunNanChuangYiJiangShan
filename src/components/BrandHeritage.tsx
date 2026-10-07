@@ -15,9 +15,8 @@ export const BrandHeritage: React.FC<BrandHeritageProps> = ({ lang }) => {
       {/* Subtle real scenery background overlay */}
       <div className="absolute inset-0 pointer-events-none opacity-10">
         <img
-          src="https://commons.wikimedia.org/wiki/Special:FilePath/2007_12_02_yuanyang_rice_terraces_sunset.jpg"
+          src="/images/yuanyang-rice-terraces-sunset.webp"
           alt="Yunnan cultural landscape"
-          referrerPolicy="no-referrer"
           className="w-full h-full object-cover filter blur-[2px]"
         />
         <div className="absolute inset-0 bg-stone-950/80" />

@@ -4,20 +4,15 @@ import { translations } from '../data/translations';
 import { ScenicCover } from './VisualAssets';
 import { ShareModal } from './ShareModal';
 import {
-  PlusCircle,
   Share2,
   Calendar,
   User,
   ArrowRight,
   Search,
-  RotateCcw,
   Video,
   FileText,
   X,
-  Edit2,
-  Trash2,
   Tag,
-  Lock,
   CheckCircle2,
 } from 'lucide-react';
 
@@ -111,25 +106,6 @@ export const NewsSection: React.FC<NewsSectionProps> = ({
             </p>
           </div>
 
-          <div className="flex flex-wrap items-center gap-3">
-            <button
-              onClick={onResetNews}
-              className="inline-flex items-center gap-1.5 px-3 py-2 bg-stone-900 border border-stone-800 hover:border-stone-700 text-stone-400 hover:text-stone-200 text-xs rounded-lg transition-colors"
-              title="恢复官方默认新闻数据"
-            >
-              <RotateCcw className="w-3.5 h-3.5" />
-              <span>{t.resetData}</span>
-            </button>
-
-            <button
-              onClick={onOpenUpload}
-              className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-stone-900 border border-stone-800 hover:border-amber-500/50 text-stone-400 hover:text-amber-300 text-xs rounded-lg transition-colors cursor-pointer"
-              title={lang === 'zh' ? '管理员专属通道（需密码认证）' : 'Admin Publishing (Password Required)'}
-            >
-              <Lock className="w-3.5 h-3.5 text-amber-500/80" />
-              <span>{lang === 'zh' ? (isAdmin ? '发布新闻 (管理员)' : '管理员发布') : (isAdmin ? 'Publish (Admin)' : 'Admin Publish')}</span>
-            </button>
-          </div>
         </div>
 
         {/* Success Banner when an article is published */}
@@ -316,28 +292,6 @@ export const NewsSection: React.FC<NewsSectionProps> = ({
                       title={t.shareNews}
                     >
                       <Share2 className="w-4 h-4 text-emerald-400" />
-                    </button>
-
-                    {/* Edit button */}
-                    <button
-                      onClick={() => onEditNews(item)}
-                      className="p-1.5 text-stone-500 hover:text-amber-300 rounded-lg hover:bg-stone-900 transition-colors cursor-pointer"
-                      title="编辑资讯"
-                    >
-                      <Edit2 className="w-3.5 h-3.5" />
-                    </button>
-
-                    {/* Delete button (with confirmation) */}
-                    <button
-                      onClick={() => {
-                        if (confirm(lang === 'zh' ? '确定要删除此条新闻吗？' : 'Delete this news article?')) {
-                          onDeleteNews(item.id);
-                        }
-                      }}
-                      className="p-1.5 text-stone-500 hover:text-rose-400 rounded-lg hover:bg-stone-900 transition-colors cursor-pointer"
-                      title="删除资讯"
-                    >
-                      <Trash2 className="w-3.5 h-3.5" />
                     </button>
                   </div>
                 </div>

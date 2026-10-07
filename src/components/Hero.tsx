@@ -15,7 +15,7 @@ const HERO_SCENIC_OPTIONS = [
     nameEn: 'Jade Dragon Mountain',
     locationZh: '丽江·玉龙雪山国家级景区',
     locationEn: 'Jade Dragon Snow Mountain',
-    url: 'https://commons.wikimedia.org/wiki/Special:FilePath/Jade_Dragon_Snow_Mountain%2C_Yunnan.jpg',
+    url: '/images/jade-dragon-snow-mountain.webp',
   },
   {
     id: 'case-erhai',
@@ -23,7 +23,7 @@ const HERO_SCENIC_OPTIONS = [
     nameEn: 'Erhai Eco-Corridor',
     locationZh: '大理·洱海生态廊道与苍山',
     locationEn: 'Erhai Ecological Corridor, Dali',
-    url: 'https://commons.wikimedia.org/wiki/Special:FilePath/Erhai_Lake_Dali_01.JPG',
+    url: '/images/erhai-lake.webp',
   },
   {
     id: 'case-lugu',
@@ -31,7 +31,7 @@ const HERO_SCENIC_OPTIONS = [
     nameEn: 'Lugu Lake Valley',
     locationZh: '丽江/宁蒗·泸沽湖母系文化地貌',
     locationEn: 'Lugu Lake Daughter Valley',
-    url: 'https://commons.wikimedia.org/wiki/Special:FilePath/Lugu_Lake.jpg',
+    url: '/images/lugu-lake.webp',
   },
   {
     id: 'case-yangtze',
@@ -39,7 +39,7 @@ const HERO_SCENIC_OPTIONS = [
     nameEn: 'First Bend of Yangtze',
     locationZh: '丽江·石鼓长江第一湾航运胜境',
     locationEn: 'First Bend of Yangtze River',
-    url: 'https://commons.wikimedia.org/wiki/Special:FilePath/1_changjiang_yangtze_aerial_pano_first_turn_shigu_2018.jpg',
+    url: '/images/yangtze-first-bend-shigu.webp',
   },
 ];
 
@@ -58,7 +58,6 @@ export const Hero: React.FC<HeroProps> = ({ lang }) => {
           key={currentBg.url}
           src={currentBg.url}
           alt={currentBg.locationZh}
-          referrerPolicy="no-referrer"
           onLoad={() => setImgLoaded(true)}
           className={`w-full h-full object-cover object-center scale-100 transition-all duration-700 ease-out contrast-[1.08] saturate-[1.12] brightness-[0.92] ${
             imgLoaded ? 'opacity-75' : 'opacity-30'

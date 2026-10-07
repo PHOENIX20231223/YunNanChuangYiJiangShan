@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Language } from '../types';
 import { translations } from '../data/translations';
-import { MapPin, Mail, Send, CheckCircle2, ShieldCheck, Copy, Check, ExternalLink } from 'lucide-react';
+import { MapPin, Mail, Phone, Send, CheckCircle2, ShieldCheck, Copy, Check, ExternalLink } from 'lucide-react';
 
 interface ContactSectionProps {
   lang: Language;
@@ -111,9 +111,8 @@ ${dataToSubmit.message}
       {/* Real scenery ambient background */}
       <div className="absolute inset-0 pointer-events-none opacity-15">
         <img
-          src="https://commons.wikimedia.org/wiki/Special:FilePath/Lijiang%2C_old_town_(6170338646).jpg"
+          src="/images/lijiang-old-town.webp"
           alt="Yunnan cultural landscape"
-          referrerPolicy="no-referrer"
           className="w-full h-full object-cover filter blur-[2px]"
         />
         <div className="absolute inset-0 bg-stone-950/85" />
@@ -154,7 +153,17 @@ ${dataToSubmit.message}
                   <span>云南省昆明市西山区红塔东路香樟十六坊16栋</span>
                 </div>
 
-                {/* 3. Phone number removed as requested */}
+                {/* 3. Business hotline */}
+                <div className="flex items-center gap-3">
+                  <Phone className="w-4 h-4 text-amber-400 shrink-0" />
+                  <a
+                    href="tel:13701280798"
+                    className="font-mono text-amber-300 hover:text-amber-200 hover:underline"
+                  >
+                    13701280798
+                  </a>
+                  <span className="text-stone-500">（商务合作专线）</span>
+                </div>
 
                 {/* 4. Official Email: info@chuangyijiangshan.com */}
                 <div className="flex items-center gap-3">
@@ -206,14 +215,14 @@ ${dataToSubmit.message}
               <div className="p-7 text-center bg-stone-950/80 rounded-xl border border-emerald-800/60 my-4 animate-in fade-in">
                 <CheckCircle2 className="w-12 h-12 text-emerald-400 mx-auto mb-3" />
                 <h4 className="text-base font-bold text-stone-100 font-serif-sc">
-                  {lang === 'zh' ? '合作咨询信息已提交并发送' : 'Inquiry Dispatched Successfully'}
+                  {lang === 'zh' ? '咨询信息已就绪，请确认发送' : 'Inquiry Ready — Please Confirm Sending'}
                 </h4>
                 <p className="text-xs text-stone-300 mt-2 max-w-lg mx-auto leading-relaxed">
                   {lang === 'zh'
-                    ? '信息已整理并同步发送至官方邮箱：'
-                    : 'Your project details have been formulated and dispatched to: '}
+                    ? '咨询信息已整理，请在自动弹出的邮件客户端中确认发送至官方邮箱：'
+                    : 'Your inquiry has been prepared. Please confirm sending in your mail client to: '}
                   <span className="text-amber-400 font-mono font-bold">info@chuangyijiangshan.com</span>
-                  {lang === 'zh' ? '，我们的政企业务负责人将在24小时内与您联系！' : '. Our team will review and reply within 24 hours.'}
+                  {lang === 'zh' ? '。若邮件客户端未自动弹出，请使用下方"通过邮件客户端再次发送"按钮。我们的政企业务负责人将在24小时内与您联系！' : '. If your mail client did not open automatically, use the "Resend via mail client" button below. Our team will review and reply within 24 hours.'}
                 </p>
 
                 {/* Submitted summary card */}

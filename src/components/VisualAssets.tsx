@@ -2,105 +2,107 @@ import React, { useState } from 'react';
 
 export const REAL_SCENIC_IMAGES: Record<string, { url: string; altZh: string; altEn: string; locationZh: string; locationEn: string }> = {
   'hero-yunnan': {
-    url: 'https://commons.wikimedia.org/wiki/Special:FilePath/Jade_Dragon_Snow_Mountain%2C_Yunnan.jpg',
+    url: '/images/jade-dragon-snow-mountain.webp',
     altZh: '云南玉龙雪山及高原风光实景',
     altEn: 'Real scene of Jade Dragon Snow Mountain, Yunnan',
     locationZh: '中国·云南·玉龙雪山',
     locationEn: 'Jade Dragon Snow Mountain, Yunnan',
   },
   'case-erhai': {
-    url: 'https://commons.wikimedia.org/wiki/Special:FilePath/Erhai_Lake_Dali_01.JPG',
+    url: '/images/erhai-lake.webp',
     altZh: '大理洱海生态廊道与苍山实景',
     altEn: 'Real scene of Erhai Lake & Ecological Corridor, Dali',
     locationZh: '大理·洱海生态廊道',
     locationEn: 'Erhai Ecological Corridor, Dali',
   },
   'preset-erhai': {
-    url: 'https://commons.wikimedia.org/wiki/Special:FilePath/Erhai_Lake_Dali_01.JPG',
+    url: '/images/erhai-lake.webp',
     altZh: '大理洱海生态廊道与苍山实景',
     altEn: 'Real scene of Erhai Lake & Ecological Corridor, Dali',
     locationZh: '大理·洱海生态廊道',
     locationEn: 'Erhai Ecological Corridor, Dali',
   },
   'case-lugu': {
-    url: 'https://commons.wikimedia.org/wiki/Special:FilePath/Lugu_Lake.jpg',
+    url: '/images/lugu-lake.webp',
     altZh: '云南泸沽湖女儿谷与猪槽船实景',
     altEn: 'Real scene of Lugu Lake & Mosuo Culture, Yunnan',
     locationZh: '丽江/宁蒗·泸沽湖女儿谷',
     locationEn: 'Lugu Lake Daughter Valley',
   },
   'preset-lugu': {
-    url: 'https://commons.wikimedia.org/wiki/Special:FilePath/Lugu_Lake.jpg',
+    url: '/images/lugu-lake.webp',
     altZh: '云南泸沽湖女儿谷与猪槽船实景',
     altEn: 'Real scene of Lugu Lake & Mosuo Culture, Yunnan',
     locationZh: '丽江/宁蒗·泸沽湖女儿谷',
     locationEn: 'Lugu Lake Daughter Valley',
   },
   'case-jiulong': {
-    url: 'https://commons.wikimedia.org/wiki/Special:FilePath/Jiulong_waterfalls_in_Luoping%2C_Yunnan%2C_China.jpg',
+    url: '/images/jiulong-waterfalls-luoping.webp',
     altZh: '曲靖罗平九龙瀑布群实景',
     altEn: 'Real scene of Jiulong Waterfalls, Luoping, Yunnan',
     locationZh: '曲靖·罗平九龙十瀑',
     locationEn: 'Jiulong Waterfalls, Luoping',
   },
   'preset-jiulong': {
-    url: 'https://commons.wikimedia.org/wiki/Special:FilePath/Jiulong_waterfalls_in_Luoping%2C_Yunnan%2C_China.jpg',
+    url: '/images/jiulong-waterfalls-luoping.webp',
     altZh: '曲靖罗平九龙瀑布群实景',
     altEn: 'Real scene of Jiulong Waterfalls, Luoping, Yunnan',
     locationZh: '曲靖·罗平九龙十瀑',
     locationEn: 'Jiulong Waterfalls, Luoping',
   },
   'case-yangtze': {
-    url: 'https://commons.wikimedia.org/wiki/Special:FilePath/1_changjiang_yangtze_aerial_pano_first_turn_shigu_2018.jpg',
+    url: '/images/yangtze-first-bend-shigu.webp',
     altZh: '丽江石鼓镇长江第一湾全景实景',
     altEn: 'Real aerial panorama of First Bend of Yangtze River Shigu',
     locationZh: '丽江·石鼓长江第一湾',
     locationEn: 'First Bend of Yangtze River',
   },
   'preset-yangtze': {
-    url: 'https://commons.wikimedia.org/wiki/Special:FilePath/1_changjiang_yangtze_aerial_pano_first_turn_shigu_2018.jpg',
+    url: '/images/yangtze-first-bend-shigu.webp',
     altZh: '丽江石鼓镇长江第一湾全景实景',
     altEn: 'Real aerial panorama of First Bend of Yangtze River Shigu',
     locationZh: '丽江·石鼓长江第一湾',
     locationEn: 'First Bend of Yangtze River',
   },
   'case-xiasi': {
-    url: 'https://commons.wikimedia.org/wiki/Special:FilePath/Qingyan_Ancient_Town%2C_Guiyang.jpg',
-    altZh: '贵州水运古镇商帮码头实景',
-    altEn: 'Real scene of Guizhou Ancient Riverport Town',
+    // 注：此为贵州古镇风貌示意配图（贵阳青岩古镇），非下司古镇实景；待取得项目实拍图后替换。
+    url: '/images/qingyan-ancient-town.webp',
+    altZh: '贵州水运古镇商帮码头风貌（示意配图）',
+    altEn: 'Guizhou ancient riverport town scenery (illustrative)',
     locationZh: '黔东南·水乡古镇码头',
     locationEn: 'Guizhou Ancient Waterfront Town',
   },
   'preset-xiasi': {
-    url: 'https://commons.wikimedia.org/wiki/Special:FilePath/Qingyan_Ancient_Town%2C_Guiyang.jpg',
-    altZh: '贵州水运古镇商帮码头实景',
-    altEn: 'Real scene of Guizhou Ancient Riverport Town',
+    // 注：此为贵州古镇风貌示意配图（贵阳青岩古镇），非下司古镇实景；待取得项目实拍图后替换。
+    url: '/images/qingyan-ancient-town.webp',
+    altZh: '贵州水运古镇商帮码头风貌（示意配图）',
+    altEn: 'Guizhou ancient riverport town scenery (illustrative)',
     locationZh: '黔东南·水乡古镇码头',
     locationEn: 'Guizhou Ancient Waterfront Town',
   },
   'case-puer-coffee': {
-    url: 'https://commons.wikimedia.org/wiki/Special:FilePath/1_yuanyang_county_rice_terrace_bada_view_2012.jpg',
+    url: '/images/yuanyang-bada-terraces.webp',
     altZh: '普洱高山茶咖生态与半山酒店风光实景',
     altEn: 'Real scene of Yunnan highland plantations & mountain scenery',
     locationZh: '普洱·高山茶咖生态与半山酒店',
     locationEn: 'Pu\'er Tea & Coffee Highlands',
   },
   'preset-coffee': {
-    url: 'https://commons.wikimedia.org/wiki/Special:FilePath/1_yuanyang_county_rice_terrace_bada_view_2012.jpg',
+    url: '/images/yuanyang-bada-terraces.webp',
     altZh: '普洱高山茶咖生态与半山酒店风光实景',
     altEn: 'Real scene of Yunnan highland plantations & mountain scenery',
     locationZh: '普洱·高山茶咖生态与半山酒店',
     locationEn: 'Pu\'er Tea & Coffee Highlands',
   },
   'heritage-lijiang': {
-    url: 'https://commons.wikimedia.org/wiki/Special:FilePath/Lijiang%2C_old_town_(6170338646).jpg',
+    url: '/images/lijiang-old-town.webp',
     altZh: '丽江古城文旅街区实景',
     altEn: 'Real scene of Lijiang Old Town streets',
     locationZh: '丽江·古城水系与纳西建筑',
     locationEn: 'Lijiang Old Town',
   },
   'heritage-sunset': {
-    url: 'https://commons.wikimedia.org/wiki/Special:FilePath/2007_12_02_yuanyang_rice_terraces_sunset.jpg',
+    url: '/images/yuanyang-rice-terraces-sunset.webp',
     altZh: '云南高原梯田晚霞实景',
     altEn: 'Sunset over Yunnan terraced mountains',
     locationZh: '云南·哈尼梯田晚霞胜景',
@@ -130,7 +132,6 @@ export const ScenicCover: React.FC<ScenicCoverProps> = ({ type, className = '', 
         <img
           src={targetPhotoUrl}
           alt={title || scenicConfig?.altZh || '云南文旅真实场景实景图'}
-          referrerPolicy="no-referrer"
           onError={() => setImgError(true)}
           className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
         />

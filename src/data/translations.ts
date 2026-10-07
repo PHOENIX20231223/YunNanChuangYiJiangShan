@@ -135,7 +135,6 @@ export const translations = {
       readFull: '阅读全文',
       shareNews: '分享报道',
       empty: '暂无符合条件的资讯',
-      resetData: '重置为官方精选新闻',
       views: '次浏览',
     },
     newsModal: {
@@ -204,7 +203,7 @@ export const translations = {
         '文旅景区提升改造与全周期托管运营',
       ],
       formTitle: '在线业务咨询与项目对接',
-      formDesc: '请填写您的单位信息与合作意向，系统将自动把对接资料直接发送至官方邮箱：info@chuangyijiangshan.com，项目负责人将在24小时内与您联系。',
+      formDesc: '请填写您的单位信息与合作意向，点击提交后将通过您的邮件客户端把对接资料发送至官方邮箱：info@chuangyijiangshan.com，项目负责人将在24小时内与您联系。',
       nameLabel: '联系人姓名 *',
       orgLabel: '单位名称（政府部门 / 企业机构） *',
       phoneLabel: '联系电话 / 手机 *',
@@ -369,7 +368,6 @@ export const translations = {
       readFull: 'Read Full Story',
       shareNews: 'Share News',
       empty: 'No news found matching criteria',
-      resetData: 'Reset to Official News',
       views: 'views',
     },
     newsModal: {
@@ -438,7 +436,7 @@ export const translations = {
         'Scenic destination upgrading, engineering, and long-term operations',
       ],
       formTitle: 'Business Inquiry & Project Consultation',
-      formDesc: 'Submit your organization details and project scope. The inquiry will be automatically forwarded to our official mailbox: info@chuangyijiangshan.com.',
+      formDesc: 'Submit your organization details and project scope. On submit, your own mail client will open to send the inquiry to our official mailbox: info@chuangyijiangshan.com.',
       nameLabel: 'Contact Name *',
       orgLabel: 'Organization (Government Dept / Enterprise) *',
       phoneLabel: 'Phone / Mobile *',

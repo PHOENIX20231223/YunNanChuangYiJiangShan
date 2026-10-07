@@ -1,7 +1,7 @@
 import React from 'react';
 import { Language } from '../types';
 import { translations } from '../data/translations';
-import { Share2, MapPin, Globe } from 'lucide-react';
+import { Share2, MapPin, Globe, Phone } from 'lucide-react';
 
 interface FooterProps {
   lang: Language;
@@ -32,6 +32,11 @@ export const Footer: React.FC<FooterProps> = ({ lang, onOpenShare }) => {
               <span aria-hidden="true" className="hidden sm:inline text-stone-700">·</span>
               <a href="mailto:info@chuangyijiangshan.com" className="text-amber-400/90 hover:text-amber-300 font-mono hover:underline">
                 info@chuangyijiangshan.com
+              </a>
+              <span aria-hidden="true" className="hidden sm:inline text-stone-700">·</span>
+              <a href="tel:13701280798" className="text-amber-400/90 hover:text-amber-300 font-mono hover:underline inline-flex items-center gap-1">
+                <Phone className="w-3.5 h-3.5 text-amber-500 shrink-0" />
+                13701280798
               </a>
               <span aria-hidden="true" className="hidden sm:inline text-stone-700">·</span>
               <span>{t.icp}</span>
