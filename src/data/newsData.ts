@@ -4,24 +4,6 @@ const STORAGE_KEY = 'yunnan_jiangshan_news_v1';
 
 export const initialNews: NewsItem[] = [
   {
-    id: 'news-test-20261008',
-    titleZh: '【测试】网站新闻发布功能测试',
-    titleEn: '[TEST] News Publishing Pipeline Test',
-    category: 'announcement',
-    date: '2026-10-08',
-    authorZh: '网站运维测试',
-    authorEn: 'Site Ops Test',
-    summaryZh: '这是一条发布流程测试新闻，用于验证通过代码仓库发布新闻是否全网可见，验证后将删除。',
-    summaryEn: 'This is a publishing pipeline test item to verify news distribution. It will be removed after verification.',
-    contentZh: '测试内容：验证"代码仓库 → Cloudflare Pages 自动部署 → 全网可见"的新闻发布流程是否正常工作。',
-    contentEn: 'Test content: verifying the news publishing pipeline (repo -> Cloudflare Pages -> live).',
-    coverImage: 'preset-erhai',
-    tagsZh: ['测试'],
-    tagsEn: ['test'],
-    views: 1,
-    isOfficial: false,
-  },
-  {
     id: 'news-1',
     titleZh: '泸沽湖女儿谷综合文旅度假区进入收官冲刺',
     titleEn: 'Lugu Lake Daughter Valley Resort Enters Final Sprint Ahead of October 2026 Grand Opening',
