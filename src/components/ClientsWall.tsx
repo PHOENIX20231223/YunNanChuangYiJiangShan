@@ -35,6 +35,16 @@ const BG = {
   chuxiong: '/images/region-chuxiong-ailao.webp', // 哀牢山·楚雄
   zhaotong: '/images/region-zhaotong-jinsha.webp', // 金沙江·昭通
   zhejiang: '/images/region-zhejiang-westlake.webp', // 西湖·浙江
+  puerOld: '/images/region-puer-chamagucheng.webp', // 茶马古城·普洱
+  mengla: '/images/region-mengla-wangtianshu.webp', // 望天树·勐腊
+  yongshan: '/images/region-yongshan-xiluodu.webp', // 溪洛渡·永善
+  ludian: '/images/region-ludian-dahaizi.webp', // 大海子·昭通
+  menglian: '/images/region-menglian-palace.webp', // 宣抚司署·孟连
+  eryuan: '/images/region-eryuan-westlake.webp', // 洱源西湖·大理
+  napahai: '/images/region-shangrila-napahai.webp', // 纳帕海·香格里拉
+  xishan: '/images/region-xishan-longmen.webp', // 西山龙门·昆明
+  santasi: '/images/region-dali-santasi.webp', // 崇圣寺三塔·大理
+  xundian: '/images/region-xundian-redland.webp', // 红土地·寻甸
 };
 
 // 客户名单与合作内容均来自网站已公开数据（projectsData.ts / yunnanCitiesData / newsData.ts），未编造。
@@ -53,7 +63,7 @@ const CLIENT_GROUPS: ClientGroup[] = [
       { zh: '玉溪市投资促进局', en: 'Yuxi Municipal Investment Promotion Bureau', servicesZh: ['委托招商', '策划包装', '影视传播'], servicesEn: ['Investment Agency', 'Planning & Packaging', 'Film & Media'], bg: BG.yuxi },
       { zh: '大理州投资促进局', en: 'Dali Prefecture Investment Promotion Bureau', servicesZh: ['策划包装'], servicesEn: ['Planning & Packaging'], bg: BG.dali },
       { zh: '普洱市投资促进局', en: "Pu'er Municipal Investment Promotion Bureau", servicesZh: ['策划包装', '影视传播'], servicesEn: ['Planning & Packaging', 'Film & Media'], bg: BG.puer },
-      { zh: '普洱市文化和旅游局', en: "Pu'er Municipal Bureau of Culture and Tourism", servicesZh: ['策划包装'], servicesEn: ['Planning & Packaging'], bg: BG.puer },
+      { zh: '普洱市文化和旅游局', en: "Pu'er Municipal Bureau of Culture and Tourism", servicesZh: ['策划包装'], servicesEn: ['Planning & Packaging'], bg: BG.puerOld },
       { zh: '迪庆州投资促进局', en: 'Diqing Prefecture Investment Promotion Bureau', servicesZh: ['策划包装'], servicesEn: ['Planning & Packaging'], bg: BG.diqing },
       { zh: '西双版纳州投资促进局', en: 'Xishuangbanna Prefecture Investment Promotion Bureau', servicesZh: ['策划包装'], servicesEn: ['Planning & Packaging'], bg: BG.banna },
       { zh: '泸水市投资促进局', en: 'Lushui Municipal Investment Promotion Bureau', servicesZh: ['影视传播'], servicesEn: ['Film & Media'], bg: BG.nujiang },
@@ -62,17 +72,17 @@ const CLIENT_GROUPS: ClientGroup[] = [
   {
     key: 'county',
     clients: [
-      { zh: '昆明市西山区商务和投资促进局', en: 'Xishan District Commerce & Investment Promotion Bureau, Kunming', servicesZh: ['委托招商'], servicesEn: ['Investment Agency'], bg: BG.kunming },
+      { zh: '昆明市西山区商务和投资促进局', en: 'Xishan District Commerce & Investment Promotion Bureau, Kunming', servicesZh: ['委托招商'], servicesEn: ['Investment Agency'], bg: BG.xishan },
       { zh: '勐海县投资促进局', en: 'Menghai County Investment Promotion Bureau', servicesZh: ['委托招商'], servicesEn: ['Investment Agency'], bg: BG.banna },
-      { zh: '勐腊县投资促进局', en: 'Mengla County Investment Promotion Bureau', servicesZh: ['委托招商'], servicesEn: ['Investment Agency'], bg: BG.banna },
+      { zh: '勐腊县投资促进局', en: 'Mengla County Investment Promotion Bureau', servicesZh: ['委托招商'], servicesEn: ['Investment Agency'], bg: BG.mengla },
       { zh: '思茅区投资促进局', en: 'Simao District Investment Promotion Bureau', servicesZh: ['策划包装'], servicesEn: ['Planning & Packaging'], bg: BG.puer },
-      { zh: '孟连县文化和旅游局', en: 'Menglian County Bureau of Culture and Tourism', servicesZh: ['策划包装', '影视传播'], servicesEn: ['Planning & Packaging', 'Film & Media'], bg: BG.puer },
-      { zh: '洱源县投资促进局', en: 'Eryuan County Investment Promotion Bureau', servicesZh: ['策划包装'], servicesEn: ['Planning & Packaging'], bg: BG.dali },
-      { zh: '迪庆香格里拉经开区经济贸易发展局', en: 'Diqing Shangri-La Development Zone Economic & Trade Bureau', servicesZh: ['策划包装'], servicesEn: ['Planning & Packaging'], bg: BG.diqing },
+      { zh: '孟连县文化和旅游局', en: 'Menglian County Bureau of Culture and Tourism', servicesZh: ['策划包装', '影视传播'], servicesEn: ['Planning & Packaging', 'Film & Media'], bg: BG.menglian },
+      { zh: '洱源县投资促进局', en: 'Eryuan County Investment Promotion Bureau', servicesZh: ['策划包装'], servicesEn: ['Planning & Packaging'], bg: BG.eryuan },
+      { zh: '迪庆香格里拉经开区经济贸易发展局', en: 'Diqing Shangri-La Development Zone Economic & Trade Bureau', servicesZh: ['策划包装'], servicesEn: ['Planning & Packaging'], bg: BG.napahai },
       { zh: '双柏县投资促进局', en: 'Shuangbai County Investment Promotion Bureau', servicesZh: ['影视传播'], servicesEn: ['Film & Media'], bg: BG.chuxiong },
-      { zh: '寻甸县文化和旅游局', en: 'Xundian County Bureau of Culture and Tourism', servicesZh: ['策划包装', '委托招商'], servicesEn: ['Planning & Packaging', 'Investment Agency'], bg: BG.kunming },
-      { zh: '永善县易地扶贫搬迁后续发展服务中心', en: 'Yongshan County Relocation Support Service Center', servicesZh: ['策划包装'], servicesEn: ['Planning & Packaging'], bg: BG.zhaotong },
-      { zh: '鲁甸县农业农村局', en: 'Ludian County Bureau of Agriculture and Rural Affairs', servicesZh: ['策划包装'], servicesEn: ['Planning & Packaging'], bg: BG.zhaotong },
+      { zh: '寻甸县文化和旅游局', en: 'Xundian County Bureau of Culture and Tourism', servicesZh: ['策划包装', '委托招商'], servicesEn: ['Planning & Packaging', 'Investment Agency'], bg: BG.xundian },
+      { zh: '永善县易地扶贫搬迁后续发展服务中心', en: 'Yongshan County Relocation Support Service Center', servicesZh: ['策划包装'], servicesEn: ['Planning & Packaging'], bg: BG.yongshan },
+      { zh: '鲁甸县农业农村局', en: 'Ludian County Bureau of Agriculture and Rural Affairs', servicesZh: ['策划包装'], servicesEn: ['Planning & Packaging'], bg: BG.ludian },
     ],
   },
   {
@@ -81,7 +91,7 @@ const CLIENT_GROUPS: ClientGroup[] = [
       { zh: '云南双龙文化旅游发展有限责任公司', en: 'Yunnan Shuanglong Culture & Tourism Development Co., Ltd.', servicesZh: ['策划包装'], servicesEn: ['Planning & Packaging'], bg: BG.kunming },
       { zh: '中国美术学院望境创意发展有限公司', en: 'Wangjing Creative Development Co., Ltd., China Academy of Art', servicesZh: ['策划包装'], servicesEn: ['Planning & Packaging'], bg: BG.zhejiang },
       { zh: '普洱慈康医院有限公司', en: "Pu'er Cikang Hospital Co., Ltd.", servicesZh: ['策划包装'], servicesEn: ['Planning & Packaging'], bg: BG.puer },
-      { zh: '大理州文旅投资平台', en: 'Dali Cultural Tourism Investment Platform', servicesZh: ['运营赋能'], servicesEn: ['Operation Empowerment'], bg: BG.dali },
+      { zh: '大理州文旅投资平台', en: 'Dali Cultural Tourism Investment Platform', servicesZh: ['运营赋能'], servicesEn: ['Operation Empowerment'], bg: BG.santasi },
     ],
   },
 ];
