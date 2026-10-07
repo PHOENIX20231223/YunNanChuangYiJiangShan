@@ -1,11 +1,82 @@
-<div align="center">
+# 云南创意江山文化旅游发展有限公司 官方网站
 
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
+> **创意为魂 · 落地为本 | Creativity Drives · Execution Delivers**  
+> 依托国家级智库（中国创意研究院 / 北京创意江山旅游规划设计院），深耕云南文旅全产业链。从一纸蓝图到目的地交付，构筑文旅康养与乡村振兴超级IP。
 
-  <h1>Built with AI Studio</h2>
+---
 
-  <p>The fastest path from prompt to production with Gemini.</p>
+## 🌟 核心功能特性
 
-  <a href="https://aistudio.google.com/apps">Start building</a>
+1. **企业定位与国家级智库渊源**
+   - 传承中国策划学创始人陈放先生策划基因。
+   - 剖析传统规划机构与创意江山全周期生态对比（“从一纸蓝图到目的地交付”）。
+   - 解答地方政府文旅发展三大核心焦虑（资源转化、商业市场化、真实落地）。
 
-</div>
+2. **四大核心业务引擎**
+   - **01 委托招商 / 代理招商**：精准对接，全流程招商服务。
+   - **02 产业 / 项目策划包装**：发现资源价值，构建商业逻辑。
+   - **03 宣传片设计制作 / 数字化传播**：从战略定位到品牌震撼表达。
+   - **04 投资建设与招商运营**：持续赋能，打造文旅超级IP。
+
+3. **云南十余州市实战图谱（交互式地图）**
+   - 覆盖昆明、大理、丽江、普洱、西双版纳、玉溪、迪庆、楚雄、怒江、昭通及省直等35+实际落地签约项目。
+
+4. **中英文双语无缝切换**
+   - 中文为主，英文为辅。一键实时切换全站所有栏目、案例及资讯。
+
+5. **管理员新闻发布与多媒体管理**
+   - 权限隔离：需通过管理员认证密码（`LEOWANG`）方可进入发布。
+   - 支持图文正文、本地图片上传预览、本地/外链视频播放、分类与标签。
+   - 数据通过 LocalStorage 持久化存储，支持随时新增、编辑、删除与重置。
+
+6. **社交媒体一键分享**
+   - 支持一键分享至微信（专属二维码扫码）、新浪微博、QQ空间、领英（LinkedIn）、X (Twitter)、Facebook。
+   - 支持一键复制链接与生成精美长图分享海报。
+
+7. **政企合作咨询系统**
+   - 用户提交意向后，系统自动整理详细对接信息并直发官方邮箱：`info@chuangyijiangshan.com`。
+
+---
+
+## 🛠️ 技术技术栈
+
+- **框架**：React 19 + TypeScript
+- **构建工具**：Vite 8
+- **样式**：Tailwind CSS v4
+- **图标**：Lucide React
+- **动效**：Motion
+
+---
+
+## 🚀 本地运行与开发
+
+### 1. 克隆项目
+```bash
+git clone https://github.com/YOUR_USERNAME/YOUR_REPOSITORY.git
+cd YOUR_REPOSITORY
+```
+
+### 2. 安装依赖
+```bash
+npm install
+```
+
+### 3. 启动本地开发服务
+```bash
+npm run dev
+```
+启动后在浏览器中访问：`http://localhost:3000`
+
+### 4. 构建生产版本
+```bash
+npm run build
+```
+编译产物将生成在 `dist` 目录下。
+
+---
+
+## 🌐 联络信息
+
+- **公司全称**：云南创意江山文化旅游发展有限公司
+- **办公地址**：云南省昆明市西山区红塔东路香樟十六坊16栋
+- **官方邮箱**：info@chuangyijiangshan.com
