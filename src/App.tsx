@@ -8,6 +8,8 @@ import { CoreEngines } from './components/CoreEngines';
 import { CaseStudies } from './components/CaseStudies';
 import { YunnanMapExplorer } from './components/YunnanMapExplorer';
 import { NewsSection } from './components/NewsSection';
+import { ProcessSection } from './components/ProcessSection';
+import { ClientsWall } from './components/ClientsWall';
 import { ContactSection } from './components/ContactSection';
 import { Footer } from './components/Footer';
 import { NewsUploadModal } from './components/NewsUploadModal';
@@ -147,6 +149,12 @@ export default function App() {
           onDeleteNews={handleDeleteNews}
           onResetNews={handleResetNews}
         />
+
+        {/* Cooperation Workflow */}
+        <ProcessSection lang={lang} />
+
+        {/* Government & Enterprise Client Wall */}
+        <ClientsWall lang={lang} />
 
         {/* Government & Enterprise Consultation */}
         <ContactSection lang={lang} />

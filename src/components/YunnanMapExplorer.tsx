@@ -158,10 +158,10 @@ export const YunnanMapExplorer: React.FC<YunnanMapExplorerProps> = ({ lang }) =>
             <div className="pb-4 border-b border-stone-800">
               <div className="flex items-center justify-between">
                 <span className="text-xs uppercase tracking-wider text-amber-400 font-mono font-bold">
-                  {lang === 'zh' ? currentCity.nameZh : currentCity.nameEn} · 实战记录
+                  {lang === 'zh' ? currentCity.nameZh : currentCity.nameEn} · {t.recordSuffix}
                 </span>
                 <span className="text-xs text-emerald-400 font-mono bg-emerald-950/60 border border-emerald-800/40 px-2 py-0.5 rounded">
-                  {currentCity.projectsCount}+ 个实战项目
+                  {currentCity.projectsCount}+ {t.projectsUnit}
                 </span>
               </div>
               <h3 className="text-xl font-bold font-serif-sc text-stone-100 mt-1">
@@ -178,7 +178,7 @@ export const YunnanMapExplorer: React.FC<YunnanMapExplorerProps> = ({ lang }) =>
                 >
                   <div className="flex items-center justify-between text-[11px] text-stone-400 mb-1">
                     <span className="text-amber-400/90 font-mono font-medium">
-                      {proj.typeZh}
+                      {lang === 'zh' ? proj.typeZh : proj.typeEn}
                     </span>
                     <span className="font-mono">{proj.year}</span>
                   </div>
@@ -187,16 +187,16 @@ export const YunnanMapExplorer: React.FC<YunnanMapExplorerProps> = ({ lang }) =>
                   </h4>
                   <div className="flex items-center gap-1.5 mt-2 text-xs text-stone-400">
                     <Building className="w-3.5 h-3.5 text-stone-500 shrink-0" />
-                    <span>委托单位：{proj.clientZh}</span>
+                    <span>{t.clientLabel}{lang === 'zh' ? proj.clientZh : proj.clientEn}</span>
                   </div>
                 </div>
               ))}
             </div>
 
             <div className="mt-6 pt-4 border-t border-stone-800 text-xs text-stone-400 flex items-center justify-between">
-              <span>实地驻场 · 专案落地 · 全流程协同</span>
+              <span>{t.footNote}</span>
               <a href="#contact" className="text-amber-400 hover:underline">
-                咨询本项目类型 →
+                {t.consultLink}
               </a>
             </div>
           </div>

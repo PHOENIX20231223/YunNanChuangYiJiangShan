@@ -76,6 +76,7 @@ export const CaseStudies: React.FC<CaseStudiesProps> = ({ lang }) => {
                     className="w-full h-full"
                     title={lang === 'zh' ? item.titleZh : item.titleEn}
                     badge={lang === 'zh' ? item.tagZh : item.tagEn}
+                    lang={lang}
                   />
                   <div className="absolute inset-0 bg-stone-950/20 group-hover:bg-transparent transition-colors" />
                 </div>
@@ -158,6 +159,7 @@ export const CaseStudies: React.FC<CaseStudiesProps> = ({ lang }) => {
                 className="w-full h-full"
                 title={lang === 'zh' ? selectedCase.titleZh : selectedCase.titleEn}
                 badge={lang === 'zh' ? selectedCase.tagZh : selectedCase.tagEn}
+                lang={lang}
               />
             </div>
 
@@ -223,7 +225,7 @@ export const CaseStudies: React.FC<CaseStudiesProps> = ({ lang }) => {
                   onClick={() => setSelectedCase(null)}
                   className="px-5 py-2 bg-amber-600 hover:bg-amber-500 text-white rounded-lg text-xs font-medium transition-colors"
                 >
-                  关闭
+                  {t.closeBtn}
                 </button>
               </div>
             </div>

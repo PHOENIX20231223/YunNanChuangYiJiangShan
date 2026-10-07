@@ -32,6 +32,8 @@ export const Header: React.FC<HeaderProps> = ({
     { href: '#cases', label: t.cases },
     { href: '#footprint', label: t.footprint },
     { href: '#news', label: t.news },
+    { href: '#process', label: t.process },
+    { href: '#clients', label: t.clients },
     { href: '#contact', label: t.contact },
   ];
 

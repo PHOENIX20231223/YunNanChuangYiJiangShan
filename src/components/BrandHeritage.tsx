@@ -56,8 +56,8 @@ export const BrandHeritage: React.FC<BrandHeritageProps> = ({ lang }) => {
               {t.founderDesc}
             </p>
             <div className="mt-6 pt-5 border-t border-stone-800/80 flex items-center justify-between text-xs text-stone-400">
-              <span className="font-serif-sc text-amber-300 font-medium">核心宗旨：奇妙创意 · 快速落地</span>
-              <span>国家级智库策划力背书</span>
+              <span className="font-serif-sc text-amber-300 font-medium">{t.founderFootL}</span>
+              <span>{t.founderFootR}</span>
             </div>
           </div>
 
@@ -79,8 +79,8 @@ export const BrandHeritage: React.FC<BrandHeritageProps> = ({ lang }) => {
               {t.corePlatformDesc}
             </p>
             <div className="mt-6 pt-5 border-t border-stone-800/80 flex items-center justify-between text-xs text-stone-400">
-              <span className="text-emerald-300 font-medium">业务链条：策划 + 规划 + 招商 + 运营</span>
-              <span>覆盖10余地市实战经验</span>
+              <span className="text-emerald-300 font-medium">{t.platformFootL}</span>
+              <span>{t.platformFootR}</span>
             </div>
           </div>
         </div>
@@ -92,7 +92,7 @@ export const BrandHeritage: React.FC<BrandHeritageProps> = ({ lang }) => {
               {t.paradigmShiftTitle}
             </h3>
             <p className="text-xs sm:text-sm text-stone-400 mt-2">
-              打破规划与建设脱节的行业宿命，实现从理念孵化到真实收益的无缝跃迁
+              {t.paradigmDesc}
             </p>
           </div>
 
@@ -108,15 +108,15 @@ export const BrandHeritage: React.FC<BrandHeritageProps> = ({ lang }) => {
               <ul className="space-y-3.5 text-xs sm:text-sm text-stone-400">
                 <li className="flex items-start gap-2.5">
                   <span className="text-stone-500 font-bold">✕</span>
-                  <span><strong>核心痛点：</strong>{t.paradigmContrast.traditional.pain}</span>
+                  <span><strong>{t.contrastLabels.pain}</strong>{t.paradigmContrast.traditional.pain}</span>
                 </li>
                 <li className="flex items-start gap-2.5">
                   <span className="text-stone-500 font-bold">✕</span>
-                  <span><strong>业务形式：</strong>{t.paradigmContrast.traditional.form}</span>
+                  <span><strong>{t.contrastLabels.form}</strong>{t.paradigmContrast.traditional.form}</span>
                 </li>
                 <li className="flex items-start gap-2.5">
                   <span className="text-stone-500 font-bold">✕</span>
-                  <span><strong>资本考量：</strong>{t.paradigmContrast.traditional.capital}</span>
+                  <span><strong>{t.contrastLabels.capital}</strong>{t.paradigmContrast.traditional.capital}</span>
                 </li>
               </ul>
             </div>
@@ -132,15 +132,15 @@ export const BrandHeritage: React.FC<BrandHeritageProps> = ({ lang }) => {
               <ul className="space-y-3.5 text-xs sm:text-sm text-stone-200">
                 <li className="flex items-start gap-2.5">
                   <CheckCircle className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
-                  <span><strong>交付导向：</strong>{t.paradigmContrast.ourAdvantage.pain}</span>
+                  <span><strong>{t.contrastLabels.delivery}</strong>{t.paradigmContrast.ourAdvantage.pain}</span>
                 </li>
                 <li className="flex items-start gap-2.5">
                   <CheckCircle className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
-                  <span><strong>全链闭环：</strong>{t.paradigmContrast.ourAdvantage.form}</span>
+                  <span><strong>{t.contrastLabels.closed}</strong>{t.paradigmContrast.ourAdvantage.form}</span>
                 </li>
                 <li className="flex items-start gap-2.5">
                   <CheckCircle className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
-                  <span><strong>投资前置：</strong>{t.paradigmContrast.ourAdvantage.capital}</span>
+                  <span><strong>{t.contrastLabels.frontload}</strong>{t.paradigmContrast.ourAdvantage.capital}</span>
                 </li>
               </ul>
             </div>
@@ -180,7 +180,7 @@ export const BrandHeritage: React.FC<BrandHeritageProps> = ({ lang }) => {
           {/* Stepping Ladder: Resources -> Strategy -> Packaging -> Agency -> Capital -> Build -> Ops -> Value */}
           <div className="pt-6 border-t border-stone-800">
             <p className="text-xs text-stone-400 font-mono tracking-wider mb-4 text-center">
-              全产业链价值转化链条 / THE VALUE CONVERSION PIPELINE
+              {t.pipelineLabel}
             </p>
             <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3">
               {t.pathSteps.map((step, idx) => (

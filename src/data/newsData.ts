@@ -35,7 +35,7 @@ Deeply honoring the matriarchal traditions of the Mosuo culture, the destination
     date: '2026-08-05',
     authorZh: '文旅运营事业部',
     authorEn: 'Tourism Operations Division',
-    summaryZh: '云南创意江山受邀参加全省文旅高质发展现场推进会，并分享洱海生态廊道如何通过前置商业策划与低碳智慧驿站运营，达成生态效益与社会经济效益的双向共赢。',
+    summaryZh: '云南创意江山受邀参加全省文旅高质量发展现场推进会，并分享洱海生态廊道如何通过前置商业策划与低碳智慧驿站运营，达成生态效益与社会经济效益的双向共赢。',
     summaryEn: 'Yunnan Creative Landscape delivered a keynote address at the Provincial Cultural Tourism Conference, detailing how Erhai Lake Eco-Corridor balanced stringent preservation with thriving smart low-carbon operations.',
     contentZh: `在日前举办的云南省文旅产业高质量发展现场推进会上，大理洱海生态廊道的运营赋能成果作为典型示范案例获得重点剖析。
 
@@ -87,7 +87,7 @@ The roadshow attracted over 30 leading listed corporations, wellness investment 
     summaryEn: 'The core doctrine "Extraordinary Creativity, Rapid Execution" pioneered by Mr. Chen Fang bears rich fruit across Yunnan. Think tank scholars examined the company\'s 35+ implementations.',
     contentZh: `日前，中国创意研究院联合云南创意江山专家组开展为期一周的云南文旅实操复盘研讨。调研组实地考察了罗平九龙瀑布、长江第一湾水上漂流及普洱半山酒店系列规划项目。
 
-研讨指出，云南文旅已全面步入“存量资产提质增效”与“原生文化深度解码”的新周期。传统的单纯设计规划院往往脱离后期施工与运营，导致大量蓝图束之高阁；而云南创意江山始终将“目的地交付”作为策划起点，在方案构思首日即将投入产出、建设周期、客群画像和投资人退出的完整商业闭环前置化设计。
+研讨指出，云南文旅已全面步入“存量资产提质增效”与“原生文化深度解码”的新周期。传统的单纯设计规划院往往脱离后期施工与运营，导致大量蓝图束之高阁；而云南创意江山始终将“目的地交付”作为策划起点，从方案构思首日便将投入产出、建设周期、客群画像和投资人退出的完整商业闭环前置化设计。
 
 专家组一致认为，这种以国家级智库策划力为底座、以在地化全链条落地能力为抓手的模式，代表了新时期中国文旅服务机构的核心演进方向。`,
     contentEn: `A joint symposium held with the China Creative Institute evaluated the operational longevity of projects across Yunnan. Experts praised the firm\'s destination-delivery doctrine where financial viability and post-launch management are baked in from day one.`,

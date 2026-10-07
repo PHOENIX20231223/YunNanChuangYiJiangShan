@@ -197,7 +197,7 @@ export const NewsSection: React.FC<NewsSectionProps> = ({
               }}
               className="mt-3 text-xs text-amber-400 hover:underline"
             >
-              清空搜索与筛选条件
+              {t.clearFilter}
             </button>
           </div>
         ) : (
@@ -224,16 +224,17 @@ export const NewsSection: React.FC<NewsSectionProps> = ({
                       className="w-full h-full"
                       title={lang === 'zh' ? item.titleZh : item.titleEn}
                       badge={getCategoryLabel(item.category)}
+                      lang={lang}
                     />
                     {isJustPublished && (
                       <span className="absolute top-3 right-3 z-10 flex items-center gap-1 text-[11px] font-bold text-amber-950 bg-gradient-to-r from-amber-400 to-amber-300 px-2 py-0.5 rounded shadow-lg animate-pulse">
-                        <span>✨ 刚刚发布</span>
+                        <span>✨ {t.justPublished}</span>
                       </span>
                     )}
                     {item.videoUrl && (
                       <span className="absolute bottom-3 right-3 flex items-center gap-1 text-[11px] font-semibold text-white bg-black/80 backdrop-blur-md px-2 py-0.5 rounded border border-white/20">
                         <Video className="w-3.5 h-3.5 text-cyan-400" />
-                        <span>视频报道</span>
+                        <span>{t.videoBadge}</span>
                       </span>
                     )}
                   </div>
@@ -320,6 +321,7 @@ export const NewsSection: React.FC<NewsSectionProps> = ({
                 className="w-full h-full"
                 title={lang === 'zh' ? readingItem.titleZh : readingItem.titleEn}
                 badge={getCategoryLabel(readingItem.category)}
+                lang={lang}
               />
             </div>
 
@@ -354,7 +356,7 @@ export const NewsSection: React.FC<NewsSectionProps> = ({
                 <div className="my-4 rounded-xl overflow-hidden border border-stone-800 bg-black shadow-lg">
                   <div className="p-2 bg-stone-950 border-b border-stone-800 flex items-center gap-2 text-xs text-stone-400">
                     <Video className="w-3.5 h-3.5 text-cyan-400" />
-                    <span>新闻配套视频播放</span>
+                    <span>{t.videoPlayerTitle}</span>
                   </div>
                   <video
                     src={readingItem.videoUrl}
@@ -399,7 +401,7 @@ export const NewsSection: React.FC<NewsSectionProps> = ({
                   onClick={() => setReadingItem(null)}
                   className="px-5 py-2 bg-amber-600 hover:bg-amber-500 text-white rounded-lg text-xs font-medium transition-colors"
                 >
-                  关闭
+                  {t.closeBtn}
                 </button>
               </div>
             </div>

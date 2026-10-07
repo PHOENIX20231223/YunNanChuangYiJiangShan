@@ -150,7 +150,7 @@ ${dataToSubmit.message}
                 {/* 2. Official Address */}
                 <div className="flex items-start gap-3">
                   <MapPin className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
-                  <span>云南省昆明市西山区红塔东路香樟十六坊16栋</span>
+                  <span>{t.address}</span>
                 </div>
 
                 {/* 3. Business hotline */}
@@ -162,7 +162,7 @@ ${dataToSubmit.message}
                   >
                     13701280798
                   </a>
-                  <span className="text-stone-500">（商务合作专线）</span>
+                  <span className="text-stone-500">{t.phoneNote}</span>
                 </div>
 
                 {/* 4. Official Email: info@chuangyijiangshan.com */}
@@ -228,12 +228,12 @@ ${dataToSubmit.message}
                 {/* Submitted summary card */}
                 {submittedData && (
                   <div className="my-5 p-4 bg-stone-900/90 rounded-lg border border-stone-800 text-left text-xs space-y-1.5 max-w-lg mx-auto text-stone-300">
-                    <div><span className="text-stone-500">合作类型：</span><span className="text-amber-300">{submittedData.type}</span></div>
-                    <div><span className="text-stone-500">联系人：</span>{submittedData.name} ({submittedData.org})</div>
-                    <div><span className="text-stone-500">联系电话：</span>{submittedData.phone}</div>
-                    <div><span className="text-stone-500">电子邮箱：</span>{submittedData.email}</div>
+                    <div><span className="text-stone-500">{t.sumType}</span><span className="text-amber-300">{submittedData.type}</span></div>
+                    <div><span className="text-stone-500">{t.sumName}</span>{submittedData.name} ({submittedData.org})</div>
+                    <div><span className="text-stone-500">{t.sumPhone}</span>{submittedData.phone}</div>
+                    <div><span className="text-stone-500">{t.sumEmail}</span>{submittedData.email}</div>
                     <div className="pt-1.5 border-t border-stone-800 text-stone-400 text-[11px] line-clamp-2">
-                      <span className="text-stone-500">诉求简述：</span>{submittedData.message}
+                      <span className="text-stone-500">{t.sumMsg}</span>{submittedData.message}
                     </div>
                   </div>
                 )}
@@ -246,7 +246,7 @@ ${dataToSubmit.message}
                     className="inline-flex items-center gap-1.5 px-4 py-2 bg-amber-600 hover:bg-amber-500 text-white rounded-lg text-xs font-medium transition-colors"
                   >
                     <Mail className="w-3.5 h-3.5" />
-                    <span>通过邮件客户端再次发送</span>
+                    <span>{t.resendBtn}</span>
                   </a>
 
                   <button
@@ -256,12 +256,12 @@ ${dataToSubmit.message}
                     {copiedText ? (
                       <>
                         <Check className="w-3.5 h-3.5 text-emerald-400" />
-                        <span className="text-emerald-400">已复制咨询内容</span>
+                        <span className="text-emerald-400">{t.copiedBtn}</span>
                       </>
                     ) : (
                       <>
                         <Copy className="w-3.5 h-3.5" />
-                        <span>复制咨询文本</span>
+                        <span>{t.copyBtn}</span>
                       </>
                     )}
                   </button>
@@ -281,10 +281,10 @@ ${dataToSubmit.message}
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs font-semibold text-stone-300 mb-1">
+                    <label htmlFor="ct-name" className="block text-xs font-semibold text-stone-300 mb-1">
                       {t.nameLabel}
                     </label>
-                    <input
+                    <input id="ct-name"
                       type="text"
                       required
                       value={formState.name}
@@ -293,10 +293,10 @@ ${dataToSubmit.message}
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-semibold text-stone-300 mb-1">
+                    <label htmlFor="ct-org" className="block text-xs font-semibold text-stone-300 mb-1">
                       {t.orgLabel}
                     </label>
-                    <input
+                    <input id="ct-org"
                       type="text"
                       required
                       value={formState.org}
@@ -308,10 +308,10 @@ ${dataToSubmit.message}
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs font-semibold text-stone-300 mb-1">
+                    <label htmlFor="ct-phone" className="block text-xs font-semibold text-stone-300 mb-1">
                       {t.phoneLabel}
                     </label>
-                    <input
+                    <input id="ct-phone"
                       type="tel"
                       required
                       value={formState.phone}
@@ -320,10 +320,10 @@ ${dataToSubmit.message}
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-semibold text-stone-300 mb-1">
+                    <label htmlFor="ct-email" className="block text-xs font-semibold text-stone-300 mb-1">
                       {t.emailLabel}
                     </label>
-                    <input
+                    <input id="ct-email"
                       type="email"
                       required
                       value={formState.email}
@@ -334,10 +334,10 @@ ${dataToSubmit.message}
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-stone-300 mb-1">
+                  <label htmlFor="ct-type" className="block text-xs font-semibold text-stone-300 mb-1">
                     {t.typeLabel}
                   </label>
-                  <select
+                  <select id="ct-type"
                     value={formState.type}
                     onChange={(e) => setFormState({ ...formState, type: e.target.value })}
                     className="w-full px-3.5 py-2.5 bg-stone-950 border border-stone-800 rounded-lg text-xs text-stone-100 focus:outline-none focus:border-amber-500"
@@ -351,10 +351,10 @@ ${dataToSubmit.message}
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-stone-300 mb-1">
+                  <label htmlFor="ct-message" className="block text-xs font-semibold text-stone-300 mb-1">
                     {t.messageLabel}
                   </label>
-                  <textarea
+                  <textarea id="ct-message"
                     rows={3}
                     required
                     value={formState.message}

@@ -251,7 +251,7 @@ export const ShareModal: React.FC<ShareModalProps> = ({
                 <rect x="78" y="82" width="6" height="8" fill="#0c0a09" />
               </svg>
               <span className="text-[11px] font-bold text-stone-800 mt-2 tracking-wider">
-                云南创意江山 · 官方链接
+                {t.qrLabel}
               </span>
             </div>
             <p className="text-xs text-stone-300 mt-4 text-center max-w-xs">{t.wechatScan}</p>
@@ -272,7 +272,7 @@ export const ShareModal: React.FC<ShareModalProps> = ({
             <div className="w-full max-w-sm bg-gradient-to-b from-stone-900 via-stone-900 to-stone-950 p-5 rounded-xl border border-amber-600/30 shadow-2xl relative">
               <div className="flex items-center justify-between pb-3 border-b border-stone-800">
                 <span className="text-xs font-serif-sc tracking-widest text-amber-400 font-bold">
-                  云南创意江山
+                  {t.posterBrand}
                 </span>
                 <span className="text-[10px] text-stone-400 font-mono">
                   CREATIVITY & EXECUTION
@@ -297,10 +297,10 @@ export const ShareModal: React.FC<ShareModalProps> = ({
               <div className="pt-3 border-t border-stone-800 flex items-center justify-between">
                 <div>
                   <p className="text-[11px] font-bold text-stone-300">
-                    创意为魂 · 落地为本
+                    {t.posterSlogan}
                   </p>
                   <p className="text-[9px] text-stone-500">
-                    www.creative-jiangshan.com
+                    chuangyijiangshan.com
                   </p>
                 </div>
                 <div className="w-12 h-12 bg-white p-1 rounded flex items-center justify-center">

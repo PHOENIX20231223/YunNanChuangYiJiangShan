@@ -75,6 +75,16 @@ export const Footer: React.FC<FooterProps> = ({ lang, onOpenShare }) => {
                 </a>
               </li>
               <li>
+                <a href="#process" className="hover:text-amber-400 transition-colors">
+                  {nav.process}
+                </a>
+              </li>
+              <li>
+                <a href="#clients" className="hover:text-amber-400 transition-colors">
+                  {nav.clients}
+                </a>
+              </li>
+              <li>
                 <a href="#contact" className="hover:text-amber-400 transition-colors">
                   {nav.contact}
                 </a>
@@ -88,7 +98,7 @@ export const Footer: React.FC<FooterProps> = ({ lang, onOpenShare }) => {
               {t.socialTitle}
             </h4>
             <p className="text-xs text-stone-400 mb-4 leading-relaxed">
-              支持一键分享本站至微信、微博、领英、X等海内外社交平台，助力云南文旅走向世界。
+              {t.shareDesc}
             </p>
             <button
               onClick={onOpenShare}
@@ -103,7 +113,7 @@ export const Footer: React.FC<FooterProps> = ({ lang, onOpenShare }) => {
         {/* Bottom Rights */}
         <div className="pt-8 border-t border-stone-900 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-stone-500">
           <span>{t.rights}</span>
-          <span>创意为魂 · 落地为本 | 奇妙创意 · 快速落地</span>
+          <span>{t.bottomSlogan}</span>
         </div>
       </div>
     </footer>

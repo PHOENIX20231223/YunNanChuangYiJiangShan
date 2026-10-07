@@ -57,7 +57,7 @@ export const Hero: React.FC<HeroProps> = ({ lang }) => {
         <img
           key={currentBg.url}
           src={currentBg.url}
-          alt={currentBg.locationZh}
+          alt={lang === 'zh' ? currentBg.locationZh : currentBg.locationEn}
           onLoad={() => setImgLoaded(true)}
           className={`w-full h-full object-cover object-center scale-100 transition-all duration-700 ease-out contrast-[1.08] saturate-[1.12] brightness-[0.92] ${
             imgLoaded ? 'opacity-75' : 'opacity-30'
@@ -77,9 +77,9 @@ export const Hero: React.FC<HeroProps> = ({ lang }) => {
         {/* Editorial Trust Kicker (Unboxed text with subtle separator) */}
         <div className="inline-flex items-center gap-2 text-xs font-semibold tracking-widest text-amber-400 uppercase mb-5 bg-stone-950/60 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-amber-500/20 shadow-md">
           <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-          <span>中国文旅及乡村振兴全产业链服务平台</span>
+          <span>{t.kicker1}</span>
           <span aria-hidden="true" className="text-stone-600">·</span>
-          <span>中国·云南</span>
+          <span>{t.kicker2}</span>
         </div>
 
         {/* Monumental Slogan Headline */}
@@ -162,13 +162,13 @@ export const Hero: React.FC<HeroProps> = ({ lang }) => {
           <div className="flex items-center gap-2">
             <Camera className="w-3.5 h-3.5 text-amber-400" />
             <span className="font-mono text-[11px] text-stone-300">
-              背景实景拍摄：{lang === 'zh' ? currentBg.locationZh : currentBg.locationEn}
+              {t.bgPrefix}{lang === 'zh' ? currentBg.locationZh : currentBg.locationEn}
             </span>
           </div>
 
           {/* Quick Scene Switcher Buttons */}
           <div className="flex items-center gap-1.5 bg-stone-900/80 p-1 rounded-lg border border-stone-800">
-            <span className="text-[10px] text-stone-400 px-1.5">切换实景:</span>
+            <span className="text-[10px] text-stone-400 px-1.5">{t.switchBg}:</span>
             {HERO_SCENIC_OPTIONS.map((item, idx) => (
               <button
                 key={item.id}

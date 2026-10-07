@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
+import { Language } from '../types';
 
-export const REAL_SCENIC_IMAGES: Record<string, { url: string; altZh: string; altEn: string; locationZh: string; locationEn: string }> = {
+export const REAL_SCENIC_IMAGES: Record<string, { url: string; altZh: string; altEn: string; locationZh: string; locationEn: string; illustrative?: boolean }> = {
   'hero-yunnan': {
     url: '/images/jade-dragon-snow-mountain.webp',
     altZh: '云南玉龙雪山及高原风光实景',
@@ -71,6 +72,7 @@ export const REAL_SCENIC_IMAGES: Record<string, { url: string; altZh: string; al
     altEn: 'Guizhou ancient riverport town scenery (illustrative)',
     locationZh: '黔东南·水乡古镇码头',
     locationEn: 'Guizhou Ancient Waterfront Town',
+    illustrative: true,
   },
   'preset-xiasi': {
     // 注：此为贵州古镇风貌示意配图（贵阳青岩古镇），非下司古镇实景；待取得项目实拍图后替换。
@@ -79,6 +81,7 @@ export const REAL_SCENIC_IMAGES: Record<string, { url: string; altZh: string; al
     altEn: 'Guizhou ancient riverport town scenery (illustrative)',
     locationZh: '黔东南·水乡古镇码头',
     locationEn: 'Guizhou Ancient Waterfront Town',
+    illustrative: true,
   },
   'case-puer-coffee': {
     url: '/images/yuanyang-bada-terraces.webp',
@@ -115,9 +118,10 @@ interface ScenicCoverProps {
   className?: string;
   title?: string;
   badge?: string;
+  lang?: Language;
 }
 
-export const ScenicCover: React.FC<ScenicCoverProps> = ({ type, className = '', title, badge }) => {
+export const ScenicCover: React.FC<ScenicCoverProps> = ({ type, className = '', title, badge, lang = 'zh' }) => {
   const [imgError, setImgError] = useState(false);
 
   // Look up matched real scenic photograph first
@@ -131,7 +135,7 @@ export const ScenicCover: React.FC<ScenicCoverProps> = ({ type, className = '', 
       <div className={`relative overflow-hidden bg-stone-900 group ${className}`}>
         <img
           src={targetPhotoUrl}
-          alt={title || scenicConfig?.altZh || '云南文旅真实场景实景图'}
+          alt={title || (lang === 'zh' ? scenicConfig?.altZh : scenicConfig?.altEn) || '云南文旅真实场景实景图'}
           onError={() => setImgError(true)}
           className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
         />
@@ -148,7 +152,11 @@ export const ScenicCover: React.FC<ScenicCoverProps> = ({ type, className = '', 
         {/* Real scene location watermark */}
         {scenicConfig?.locationZh && (
           <span className="absolute bottom-2.5 right-3 text-[10px] text-stone-300/80 bg-stone-950/60 backdrop-blur-sm px-2 py-0.5 rounded font-mono border border-white/10 z-10 pointer-events-none">
-            实景拍摄 · {scenicConfig.locationZh}
+            {scenicConfig.illustrative
+              ? (lang === 'zh' ? '示意配图' : 'Illustrative')
+              : (lang === 'zh' ? '实景拍摄' : 'On Location')}
+            {' · '}
+            {lang === 'zh' ? scenicConfig.locationZh : scenicConfig.locationEn}
           </span>
         )}
       </div>
