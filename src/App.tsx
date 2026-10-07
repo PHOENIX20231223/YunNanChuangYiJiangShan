@@ -18,6 +18,7 @@ import { Share2 } from 'lucide-react';
 export default function App() {
   const [lang, setLang] = useState<Language>('zh');
   const [newsList, setNewsList] = useState<NewsItem[]>([]);
+  const [recentlyPublishedId, setRecentlyPublishedId] = useState<string | null>(null);
   const [isUploadModalOpen, setIsUploadModalOpen] = useState(false);
   const [editingNewsItem, setEditingNewsItem] = useState<NewsItem | null>(null);
   const [isSiteShareModalOpen, setIsSiteShareModalOpen] = useState(false);
@@ -99,6 +100,7 @@ export default function App() {
       saveNewsToStorage(updated);
       return updated;
     });
+    setRecentlyPublishedId(savedItem.id);
   };
 
   const handleAuthSuccess = () => {
@@ -139,6 +141,7 @@ export default function App() {
           lang={lang}
           newsList={newsList}
           isAdmin={isAdminAuthenticated}
+          recentlyPublishedId={recentlyPublishedId}
           onOpenUpload={handleOpenUploadNews}
           onEditNews={handleEditNews}
           onDeleteNews={handleDeleteNews}
@@ -168,6 +171,7 @@ export default function App() {
 
       {/* Autonomous News Upload & Editing Modal (Only opened after LEOWANG password verification) */}
       <NewsUploadModal
+        key={editingNewsItem ? editingNewsItem.id : isUploadModalOpen ? 'opened-new' : 'closed'}
         isOpen={isUploadModalOpen}
         onClose={() => {
           setIsUploadModalOpen(false);

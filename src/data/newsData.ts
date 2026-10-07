@@ -105,7 +105,28 @@ export function getStoredNews(): NewsItem[] {
     if (raw) {
       const parsed = JSON.parse(raw);
       if (Array.isArray(parsed) && parsed.length > 0) {
-        return parsed;
+        // Sanitize every item to ensure all fields are safely defined
+        return parsed.map((item, idx) => ({
+          id: String(item.id || `news-stored-${idx}-${Date.now()}`),
+          titleZh: String(item.titleZh || '新闻资讯'),
+          titleEn: String(item.titleEn || item.titleZh || 'News Update'),
+          category: (['group', 'milestone', 'insight', 'announcement'].includes(item.category)
+            ? item.category
+            : 'group') as NewsItem['category'],
+          date: String(item.date || new Date().toISOString().slice(0, 10)),
+          authorZh: String(item.authorZh || '云南创意江山统筹中心'),
+          authorEn: String(item.authorEn || 'Creative Landscape Team'),
+          summaryZh: String(item.summaryZh || ''),
+          summaryEn: String(item.summaryEn || ''),
+          contentZh: String(item.contentZh || ''),
+          contentEn: String(item.contentEn || ''),
+          coverImage: String(item.coverImage || 'preset-erhai'),
+          videoUrl: item.videoUrl ? String(item.videoUrl) : undefined,
+          tagsZh: Array.isArray(item.tagsZh) && item.tagsZh.length > 0 ? item.tagsZh.map(String) : ['云南文旅'],
+          tagsEn: Array.isArray(item.tagsEn) && item.tagsEn.length > 0 ? item.tagsEn.map(String) : ['Yunnan Tourism'],
+          views: typeof item.views === 'number' ? item.views : 1,
+          isOfficial: !!item.isOfficial,
+        }));
       }
     }
   } catch (err) {
@@ -114,11 +135,33 @@ export function getStoredNews(): NewsItem[] {
   return initialNews;
 }
 
-export function saveNewsToStorage(newsList: NewsItem[]): void {
+export function saveNewsToStorage(newsList: NewsItem[]): boolean {
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(newsList));
+    return true;
   } catch (err) {
-    console.error('Failed to save news to localStorage:', err);
+    console.warn('Failed to save full news to localStorage (possible quota limit):', err);
+    // If quota exceeded, compress and keep items safely without massive data URLs
+    try {
+      const streamlined = newsList.slice(0, 20).map((item) => ({
+        ...item,
+        // If an image dataURL is overly huge (>400KB), replace with preset to prevent quota crash
+        coverImage:
+          item.coverImage && item.coverImage.length > 400000
+            ? 'preset-erhai'
+            : item.coverImage || 'preset-erhai',
+        // Strip huge local video dataURL from localStorage (video still plays in current session)
+        videoUrl:
+          item.videoUrl && item.videoUrl.length > 100000
+            ? undefined
+            : item.videoUrl,
+      }));
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(streamlined));
+      return true;
+    } catch (fallbackErr) {
+      console.error('Failed fallback storage:', fallbackErr);
+      return false;
+    }
   }
 }
 

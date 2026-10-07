@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { NewsItem, Language } from '../types';
 import { translations } from '../data/translations';
 import { ScenicCover } from './VisualAssets';
@@ -18,12 +18,14 @@ import {
   Trash2,
   Tag,
   Lock,
+  CheckCircle2,
 } from 'lucide-react';
 
 interface NewsSectionProps {
   lang: Language;
   newsList: NewsItem[];
   isAdmin?: boolean;
+  recentlyPublishedId?: string | null;
   onOpenUpload: () => void;
   onEditNews: (item: NewsItem) => void;
   onDeleteNews: (id: string) => void;
@@ -34,6 +36,7 @@ export const NewsSection: React.FC<NewsSectionProps> = ({
   lang,
   newsList,
   isAdmin = false,
+  recentlyPublishedId = null,
   onOpenUpload,
   onEditNews,
   onDeleteNews,
@@ -43,6 +46,26 @@ export const NewsSection: React.FC<NewsSectionProps> = ({
   const [searchQuery, setSearchQuery] = useState('');
   const [readingItem, setReadingItem] = useState<NewsItem | null>(null);
   const [sharingItem, setSharingItem] = useState<NewsItem | null>(null);
+  const [showPublishSuccessBanner, setShowPublishSuccessBanner] = useState(false);
+  const [lastPublishedItem, setLastPublishedItem] = useState<NewsItem | null>(null);
+
+  // When a new article is published, ensure it's visible by resetting filter and clearing search
+  useEffect(() => {
+    if (recentlyPublishedId) {
+      const found = newsList.find((n) => n.id === recentlyPublishedId);
+      if (found) {
+        setFilter('all');
+        setSearchQuery('');
+        setLastPublishedItem(found);
+        setShowPublishSuccessBanner(true);
+        // Auto scroll to news section
+        const el = document.getElementById('news');
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
+    }
+  }, [recentlyPublishedId, newsList]);
 
   const t = translations[lang].news;
 
@@ -50,9 +73,9 @@ export const NewsSection: React.FC<NewsSectionProps> = ({
     if (filter !== 'all' && item.category !== filter) return false;
     if (searchQuery.trim()) {
       const q = searchQuery.toLowerCase();
-      const matchZh = item.titleZh.toLowerCase().includes(q) || item.summaryZh.toLowerCase().includes(q);
-      const matchEn = item.titleEn.toLowerCase().includes(q) || item.summaryEn.toLowerCase().includes(q);
-      const matchTag = item.tagsZh.some((tag) => tag.toLowerCase().includes(q));
+      const matchZh = (item.titleZh || '').toLowerCase().includes(q) || (item.summaryZh || '').toLowerCase().includes(q);
+      const matchEn = (item.titleEn || '').toLowerCase().includes(q) || (item.summaryEn || '').toLowerCase().includes(q);
+      const matchTag = (item.tagsZh || []).some((tag) => tag && tag.toLowerCase().includes(q));
       if (!matchZh && !matchEn && !matchTag) return false;
     }
     return true;
@@ -109,6 +132,39 @@ export const NewsSection: React.FC<NewsSectionProps> = ({
           </div>
         </div>
 
+        {/* Success Banner when an article is published */}
+        {showPublishSuccessBanner && lastPublishedItem && (
+          <div className="mb-8 p-4 bg-emerald-950/80 border border-emerald-500/50 rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-emerald-200 animate-in fade-in slide-in-from-top-2 duration-300 shadow-lg">
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 rounded-full bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400 shrink-0">
+                <CheckCircle2 className="w-4 h-4" />
+              </div>
+              <div>
+                <p className="text-sm font-semibold text-emerald-100">
+                  {lang === 'zh' ? '新闻发布成功！已实时收录展示' : 'News published successfully!'}
+                </p>
+                <p className="text-xs text-emerald-300/80 mt-0.5 line-clamp-1">
+                  《{lang === 'zh' ? lastPublishedItem.titleZh : lastPublishedItem.titleEn}》
+                </p>
+              </div>
+            </div>
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => setReadingItem(lastPublishedItem)}
+                className="px-3.5 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg text-xs font-medium transition-colors cursor-pointer"
+              >
+                {lang === 'zh' ? '立即查看全文' : 'View Now'}
+              </button>
+              <button
+                onClick={() => setShowPublishSuccessBanner(false)}
+                className="p-1.5 text-emerald-400 hover:text-white rounded-lg hover:bg-emerald-900/50 cursor-pointer"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
+        )}
+
         {/* Filter and Search Bar */}
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 mb-10 pb-6 border-b border-stone-800/80">
           {/* Category Tabs */}
@@ -134,6 +190,10 @@ export const NewsSection: React.FC<NewsSectionProps> = ({
                 {tab.label}
               </button>
             ))}
+
+            <span className="text-xs text-stone-500 font-mono ml-2 hidden sm:inline">
+              {lang === 'zh' ? `共 ${filteredNews.length} 篇报道` : `${filteredNews.length} articles`}
+            </span>
           </div>
 
           {/* Search Box */}
@@ -166,10 +226,16 @@ export const NewsSection: React.FC<NewsSectionProps> = ({
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredNews.map((item) => (
+            {filteredNews.map((item) => {
+              const isJustPublished = recentlyPublishedId === item.id;
+              return (
               <article
                 key={item.id}
-                className="bg-stone-950 rounded-2xl border border-stone-800 overflow-hidden flex flex-col justify-between group hover:border-amber-500/40 transition-all duration-300 shadow-xl"
+                className={`bg-stone-950 rounded-2xl border overflow-hidden flex flex-col justify-between group transition-all duration-300 shadow-xl ${
+                  isJustPublished
+                    ? 'border-amber-400 ring-2 ring-amber-400/40 shadow-amber-500/10'
+                    : 'border-stone-800 hover:border-amber-500/40'
+                }`}
               >
                 <div>
                   {/* Article Media Cover */}
@@ -183,6 +249,11 @@ export const NewsSection: React.FC<NewsSectionProps> = ({
                       title={lang === 'zh' ? item.titleZh : item.titleEn}
                       badge={getCategoryLabel(item.category)}
                     />
+                    {isJustPublished && (
+                      <span className="absolute top-3 right-3 z-10 flex items-center gap-1 text-[11px] font-bold text-amber-950 bg-gradient-to-r from-amber-400 to-amber-300 px-2 py-0.5 rounded shadow-lg animate-pulse">
+                        <span>✨ 刚刚发布</span>
+                      </span>
+                    )}
                     {item.videoUrl && (
                       <span className="absolute bottom-3 right-3 flex items-center gap-1 text-[11px] font-semibold text-white bg-black/80 backdrop-blur-md px-2 py-0.5 rounded border border-white/20">
                         <Video className="w-3.5 h-3.5 text-cyan-400" />
@@ -215,7 +286,7 @@ export const NewsSection: React.FC<NewsSectionProps> = ({
 
                     {/* Tags */}
                     <div className="flex flex-wrap gap-1 mt-3">
-                      {(lang === 'zh' ? item.tagsZh : item.tagsEn).slice(0, 3).map((tag, idx) => (
+                      {((lang === 'zh' ? item.tagsZh : item.tagsEn) || []).slice(0, 3).map((tag, idx) => (
                         <span
                           key={idx}
                           className="text-[10px] text-stone-400 bg-stone-900 px-2 py-0.5 rounded border border-stone-800"
@@ -231,7 +302,7 @@ export const NewsSection: React.FC<NewsSectionProps> = ({
                 <div className="px-5 pb-5 pt-2 flex items-center justify-between border-t border-stone-900">
                   <button
                     onClick={() => setReadingItem(item)}
-                    className="inline-flex items-center gap-1 text-xs font-semibold text-amber-400 hover:text-amber-300 transition-colors"
+                    className="inline-flex items-center gap-1 text-xs font-semibold text-amber-400 hover:text-amber-300 transition-colors cursor-pointer"
                   >
                     <span>{t.readFull}</span>
                     <ArrowRight className="w-3.5 h-3.5" />
@@ -241,7 +312,7 @@ export const NewsSection: React.FC<NewsSectionProps> = ({
                     {/* Share Action Button */}
                     <button
                       onClick={() => setSharingItem(item)}
-                      className="p-1.5 text-stone-400 hover:text-white rounded-lg hover:bg-stone-900 transition-colors"
+                      className="p-1.5 text-stone-400 hover:text-white rounded-lg hover:bg-stone-900 transition-colors cursor-pointer"
                       title={t.shareNews}
                     >
                       <Share2 className="w-4 h-4 text-emerald-400" />
@@ -250,7 +321,7 @@ export const NewsSection: React.FC<NewsSectionProps> = ({
                     {/* Edit button */}
                     <button
                       onClick={() => onEditNews(item)}
-                      className="p-1.5 text-stone-500 hover:text-amber-300 rounded-lg hover:bg-stone-900 transition-colors"
+                      className="p-1.5 text-stone-500 hover:text-amber-300 rounded-lg hover:bg-stone-900 transition-colors cursor-pointer"
                       title="编辑资讯"
                     >
                       <Edit2 className="w-3.5 h-3.5" />
@@ -263,7 +334,7 @@ export const NewsSection: React.FC<NewsSectionProps> = ({
                           onDeleteNews(item.id);
                         }
                       }}
-                      className="p-1.5 text-stone-500 hover:text-rose-400 rounded-lg hover:bg-stone-900 transition-colors"
+                      className="p-1.5 text-stone-500 hover:text-rose-400 rounded-lg hover:bg-stone-900 transition-colors cursor-pointer"
                       title="删除资讯"
                     >
                       <Trash2 className="w-3.5 h-3.5" />
@@ -271,7 +342,8 @@ export const NewsSection: React.FC<NewsSectionProps> = ({
                   </div>
                 </div>
               </article>
-            ))}
+            );
+            })}
           </div>
         )}
       </div>

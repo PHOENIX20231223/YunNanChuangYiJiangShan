@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { X, Upload, Image as ImageIcon, Video, Eye, Edit3, Trash2, CheckCircle2, Film } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { X, Upload, Image as ImageIcon, Video, Eye, Edit3, Trash2, CheckCircle2, Film, Loader2 } from 'lucide-react';
 import { Language, NewsItem } from '../types';
 import { translations } from '../data/translations';
 import { ScenicCover } from './VisualAssets';
@@ -12,6 +12,46 @@ interface NewsUploadModalProps {
   editingItem?: NewsItem | null;
 }
 
+// Compress uploaded photos via HTML5 Canvas to keep storage <150KB and prevent localStorage QuotaExceededError
+const compressImageFile = (file: File): Promise<string> => {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const img = new Image();
+      img.onload = () => {
+        const maxWidth = 1600;
+        const maxHeight = 1000;
+        let { width, height } = img;
+        if (width > maxWidth || height > maxHeight) {
+          if (width / height > maxWidth / maxHeight) {
+            height = Math.round((height * maxWidth) / width);
+            width = maxWidth;
+          } else {
+            width = Math.round((width * maxHeight) / height);
+            height = maxHeight;
+          }
+        }
+        const canvas = document.createElement('canvas');
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext('2d');
+        if (!ctx) {
+          resolve(e.target?.result as string);
+          return;
+        }
+        ctx.drawImage(img, 0, 0, width, height);
+        // High quality web JPEG, typically 80-180KB
+        const compressed = canvas.toDataURL('image/jpeg', 0.85);
+        resolve(compressed);
+      };
+      img.onerror = () => reject(new Error('Image decode failed'));
+      img.src = e.target?.result as string;
+    };
+    reader.onerror = () => reject(new Error('File read failed'));
+    reader.readAsDataURL(file);
+  });
+};
+
 export const NewsUploadModal: React.FC<NewsUploadModalProps> = ({
   isOpen,
   onClose,
@@ -22,41 +62,84 @@ export const NewsUploadModal: React.FC<NewsUploadModalProps> = ({
   const t = translations[lang].newsModal;
 
   const [activeTab, setActiveTab] = useState<'edit' | 'preview'>('edit');
-  const [titleZh, setTitleZh] = useState(editingItem?.titleZh || '');
-  const [titleEn, setTitleEn] = useState(editingItem?.titleEn || '');
-  const [category, setCategory] = useState<NewsItem['category']>(editingItem?.category || 'group');
-  const [date, setDate] = useState(editingItem?.date || new Date().toISOString().slice(0, 10));
-  const [authorZh, setAuthorZh] = useState(editingItem?.authorZh || '云南创意江山统筹中心');
-  const [authorEn, setAuthorEn] = useState(editingItem?.authorEn || 'Creative Landscape Team');
-  const [summaryZh, setSummaryZh] = useState(editingItem?.summaryZh || '');
-  const [summaryEn, setSummaryEn] = useState(editingItem?.summaryEn || '');
-  const [contentZh, setContentZh] = useState(editingItem?.contentZh || '');
-  const [contentEn, setContentEn] = useState(editingItem?.contentEn || '');
-  const [coverImage, setCoverImage] = useState(editingItem?.coverImage || 'preset-erhai');
-  const [videoUrl, setVideoUrl] = useState(editingItem?.videoUrl || '');
-  const [tagsStr, setTagsStr] = useState((editingItem?.tagsZh || ['云南文旅', '项目动态']).join(', '));
+  const [titleZh, setTitleZh] = useState('');
+  const [titleEn, setTitleEn] = useState('');
+  const [category, setCategory] = useState<NewsItem['category']>('group');
+  const [date, setDate] = useState(new Date().toISOString().slice(0, 10));
+  const [authorZh, setAuthorZh] = useState('云南创意江山统筹中心');
+  const [authorEn, setAuthorEn] = useState('Creative Landscape Team');
+  const [summaryZh, setSummaryZh] = useState('');
+  const [summaryEn, setSummaryEn] = useState('');
+  const [contentZh, setContentZh] = useState('');
+  const [contentEn, setContentEn] = useState('');
+  const [coverImage, setCoverImage] = useState('preset-erhai');
+  const [videoUrl, setVideoUrl] = useState('');
+  const [tagsStr, setTagsStr] = useState('云南文旅, 项目动态');
   const [uploadError, setUploadError] = useState('');
+  const [isCompressingImg, setIsCompressingImg] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Synchronize form when opened or editingItem changes
+  useEffect(() => {
+    if (isOpen) {
+      setActiveTab('edit');
+      setUploadError('');
+      setIsSubmitting(false);
+      if (editingItem) {
+        setTitleZh(editingItem.titleZh || '');
+        setTitleEn(editingItem.titleEn || '');
+        setCategory(editingItem.category || 'group');
+        setDate(editingItem.date || new Date().toISOString().slice(0, 10));
+        setAuthorZh(editingItem.authorZh || '云南创意江山统筹中心');
+        setAuthorEn(editingItem.authorEn || 'Creative Landscape Team');
+        setSummaryZh(editingItem.summaryZh || '');
+        setSummaryEn(editingItem.summaryEn || '');
+        setContentZh(editingItem.contentZh || '');
+        setContentEn(editingItem.contentEn || '');
+        setCoverImage(editingItem.coverImage || 'preset-erhai');
+        setVideoUrl(editingItem.videoUrl || '');
+        setTagsStr((editingItem.tagsZh || ['云南文旅', '项目动态']).join(', '));
+      } else {
+        setTitleZh('');
+        setTitleEn('');
+        setCategory('group');
+        setDate(new Date().toISOString().slice(0, 10));
+        setAuthorZh('云南创意江山统筹中心');
+        setAuthorEn('Creative Landscape Team');
+        setSummaryZh('');
+        setSummaryEn('');
+        setContentZh('');
+        setContentEn('');
+        setCoverImage('preset-erhai');
+        setVideoUrl('');
+        setTagsStr('云南文旅, 项目动态');
+      }
+    }
+  }, [isOpen, editingItem]);
 
   if (!isOpen) return null;
 
-  // Handle local image file upload -> convert to base64 DataURL
-  const handleImageFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  // Handle local image file upload with automatic compression
+  const handleImageFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
-    if (file.size > 8 * 1024 * 1024) {
-      setUploadError(lang === 'zh' ? '图片大小请在 8MB 以内' : 'Image size must be under 8MB');
+    if (file.size > 20 * 1024 * 1024) {
+      setUploadError(lang === 'zh' ? '图片大小请在 20MB 以内' : 'Image size must be under 20MB');
       return;
     }
 
-    const reader = new FileReader();
-    reader.onload = () => {
-      if (typeof reader.result === 'string') {
-        setCoverImage(reader.result);
-        setUploadError('');
-      }
-    };
-    reader.readAsDataURL(file);
+    try {
+      setIsCompressingImg(true);
+      setUploadError('');
+      const compressedDataUrl = await compressImageFile(file);
+      setCoverImage(compressedDataUrl);
+    } catch (err) {
+      console.error(err);
+      setUploadError(lang === 'zh' ? '图片处理失败，请重试' : 'Failed to process image');
+    } finally {
+      setIsCompressingImg(false);
+    }
   };
 
   // Handle local video file upload -> convert to blob DataURL
@@ -79,44 +162,54 @@ export const NewsUploadModal: React.FC<NewsUploadModalProps> = ({
     reader.readAsDataURL(file);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  const executeSave = () => {
     if (!titleZh.trim()) {
       setUploadError(lang === 'zh' ? '请填写中文新闻标题' : 'Please provide Chinese title');
+      setActiveTab('edit');
       return;
     }
     if (!contentZh.trim()) {
       setUploadError(lang === 'zh' ? '请填写新闻正文内容' : 'Please provide content body');
+      setActiveTab('edit');
       return;
     }
+
+    setIsSubmitting(true);
 
     const tagsArray = tagsStr
       .split(/[,，]/)
       .map((s) => s.trim())
       .filter(Boolean);
 
+    const finalTags = tagsArray.length > 0 ? tagsArray : ['云南文旅'];
+
     const newItem: NewsItem = {
       id: editingItem?.id || `news-${Date.now()}`,
       titleZh: titleZh.trim(),
       titleEn: titleEn.trim() || titleZh.trim(),
       category,
-      date,
-      authorZh: authorZh.trim(),
+      date: date || new Date().toISOString().slice(0, 10),
+      authorZh: authorZh.trim() || '云南创意江山统筹中心',
       authorEn: authorEn.trim() || 'Creative Landscape Team',
-      summaryZh: summaryZh.trim() || contentZh.slice(0, 120) + '...',
-      summaryEn: summaryEn.trim() || (titleEn ? titleEn + '...' : summaryZh.slice(0, 120)),
+      summaryZh: summaryZh.trim() || (contentZh.length > 120 ? contentZh.slice(0, 120) + '...' : contentZh.trim()),
+      summaryEn: summaryEn.trim() || (titleEn.trim() ? titleEn.trim() + '...' : summaryZh.trim() || contentZh.slice(0, 120)),
       contentZh: contentZh.trim(),
       contentEn: contentEn.trim() || contentZh.trim(),
       coverImage: coverImage || 'preset-erhai',
       videoUrl: videoUrl.trim() || undefined,
-      tagsZh: tagsArray.length > 0 ? tagsArray : ['云南文旅'],
-      tagsEn: tagsArray.map((t) => t),
+      tagsZh: finalTags,
+      tagsEn: finalTags,
       views: editingItem?.views || 1,
       isOfficial: false,
     };
 
     onSaveNews(newItem);
     onClose();
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    executeSave();
   };
 
   const presetImages = [
@@ -335,17 +428,26 @@ export const NewsUploadModal: React.FC<NewsUploadModalProps> = ({
                   {/* Local image file upload */}
                   <div className="flex items-center gap-2">
                     <label className="cursor-pointer inline-flex items-center gap-2 px-3 py-1.5 bg-stone-800 hover:bg-stone-700 text-stone-200 rounded-lg text-xs font-medium transition-colors border border-stone-700">
-                      <Upload className="w-3.5 h-3.5 text-amber-400" />
-                      <span>{t.form.uploadImageBtn}</span>
+                      {isCompressingImg ? (
+                        <Loader2 className="w-3.5 h-3.5 text-amber-400 animate-spin" />
+                      ) : (
+                        <Upload className="w-3.5 h-3.5 text-amber-400" />
+                      )}
+                      <span>{isCompressingImg ? '处理中...' : t.form.uploadImageBtn}</span>
                       <input
                         type="file"
                         accept="image/*"
+                        disabled={isCompressingImg}
                         onChange={handleImageFileChange}
                         className="hidden"
                       />
                     </label>
                     <span className="text-[11px] text-stone-500 truncate max-w-[150px]">
-                      {coverImage.startsWith('data:image') ? '已选择本地文件' : coverImage}
+                      {isCompressingImg
+                        ? '正在自动压缩画质...'
+                        : coverImage.startsWith('data:image')
+                        ? '已选择本地文件 (已自动优化)'
+                        : coverImage}
                     </span>
                   </div>
 
@@ -432,10 +534,21 @@ export const NewsUploadModal: React.FC<NewsUploadModalProps> = ({
                 </button>
                 <button
                   type="submit"
-                  className="px-6 py-2.5 bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-400 text-white font-medium text-xs rounded-lg shadow-lg hover:shadow-amber-500/20 transition-all flex items-center gap-2"
+                  disabled={isCompressingImg || isSubmitting}
+                  className="px-6 py-2.5 bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-400 disabled:opacity-50 disabled:cursor-not-allowed text-white font-medium text-xs rounded-lg shadow-lg hover:shadow-amber-500/20 transition-all flex items-center gap-2 cursor-pointer"
                 >
-                  <CheckCircle2 className="w-4 h-4" />
-                  <span>{editingItem ? t.form.saveEditBtn : t.form.submitBtn}</span>
+                  {isSubmitting ? (
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                  ) : (
+                    <CheckCircle2 className="w-4 h-4" />
+                  )}
+                  <span>
+                    {isSubmitting
+                      ? '发布中...'
+                      : editingItem
+                      ? t.form.saveEditBtn
+                      : t.form.submitBtn}
+                  </span>
                 </button>
               </div>
             </form>
@@ -507,13 +620,33 @@ export const NewsUploadModal: React.FC<NewsUploadModalProps> = ({
                 </div>
               </div>
 
-              <div className="flex justify-end pt-4">
+              <div className="flex items-center justify-between pt-4 border-t border-stone-800">
                 <button
                   type="button"
                   onClick={() => setActiveTab('edit')}
-                  className="px-5 py-2 bg-stone-800 hover:bg-stone-700 text-stone-200 text-xs rounded-lg transition-colors"
+                  className="px-5 py-2.5 bg-stone-800 hover:bg-stone-700 text-stone-200 text-xs rounded-lg transition-colors cursor-pointer"
                 >
                   返回修改
+                </button>
+
+                <button
+                  type="button"
+                  onClick={executeSave}
+                  disabled={isSubmitting || isCompressingImg}
+                  className="px-6 py-2.5 bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-400 disabled:opacity-50 text-white font-medium text-xs rounded-lg shadow-lg transition-all flex items-center gap-2 cursor-pointer"
+                >
+                  {isSubmitting ? (
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                  ) : (
+                    <CheckCircle2 className="w-4 h-4" />
+                  )}
+                  <span>
+                    {isSubmitting
+                      ? '发布中...'
+                      : editingItem
+                      ? '保存并更新'
+                      : '确认发布新闻'}
+                  </span>
                 </button>
               </div>
             </div>
